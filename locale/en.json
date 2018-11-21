@@ -1,0 +1,9 @@
+{
+  "Channel": "Channel",
+  "Type": "Type",
+  "Name": "Name",
+  "Mac": "Mac",
+  "Ip": "Ip",
+  "Device": "Device",
+  "Model": "Model"
+}

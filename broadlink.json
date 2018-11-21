@@ -1,0 +1,45 @@
+{
+  "id": "broadlink",
+  "description": "Broadlink plugin",
+  "gendevices": 0,
+  "smart": 1,
+  "restartOnChannelsChange":1,
+  "single": 1,
+  "module": "index.js",
+  "params": [],
+  "genrules": {},
+  "commands": [],
+  "sch": {
+    "scheme": {
+      "type": { "filter": true, "fixed": false, "name": "$Type", "order": 1, "type": "STRING", "width": 200 },
+      "name": { "filter": true, "fixed": false, "name": "$Name", "order": 2, "type": "STRING", "width": 200 },
+      "mac": { "filter": true, "fixed": false, "name": "$Mac", "order": 3, "type": "STRING", "width": 200 },
+      "ip": { "filter": true, "fixed": false, "name": "$Ip", "order": 4, "type": "STRING", "width": 200 },
+      "dn": { "filter": true, "fixed": false, "name": "$Device", "order": 5, "type": "STRING", "width": 200 },
+      "model": { "filter": true, "fixed": false, "name": "$Model", "order": 6, "type": "STRING", "width": 200 }
+    },
+    "record": {
+      "channel": {
+        "name": "$Channel",
+        "order": 1,
+        "toolbar": false,
+        "properties": {
+          "type": { "name": "$Type", "order": 1, "type": "STRING" },
+          "name": { "name": "$Name", "order": 2, "type": "STRING" },
+          "mac": { "name": "$Mac", "order": 3, "type": "STRING" },
+          "ip": { "name": "$Ip", "order": 4, "type": "STRING" },
+          "dn": { "name": "$Device", "order": 5, "type": "autocomplete", "data": "devicesdroplist" },
+          "model": { "name": "$Model", "order": 6, "type": "STRING" }
+        }
+      }
+    },
+    "default": {
+      "type": "",
+      "name": "",
+      "mac": "00:0a:95:9d:68:16",
+      "ip": "127.0.0.1",
+      "dn": "",
+      "model": ""
+    }
+  }
+}
