@@ -12,6 +12,11 @@
       "type": "string"
     },
     {
+      "name": "mac",
+      "note": "$Mac",
+      "type": "string"
+    },
+    {
       "name": "type",
       "note": "$Type",
       "type": "string"
@@ -37,6 +42,7 @@
     "type": "",
     "name": "",
     "ip": "127.0.0.1",
+    "mac": "00:00:00:00:00:00",
     "dn": "",
     "model": "",
     "desc": "plug"
