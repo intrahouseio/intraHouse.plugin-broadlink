@@ -8,7 +8,7 @@
   "chpattern": [
     {
       "name": "chan",
-      "note": "$Mac",
+      "note": "$Channel",
       "type": "string"
     },
     {
@@ -45,6 +45,10 @@
   "genrules": {
     "plug": {
       "type": "550", "cl": "ActorD",
+      "ext": []
+    },
+    "consumption": {
+      "type": "200",
       "ext": []
     }
   },

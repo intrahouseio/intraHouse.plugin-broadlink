@@ -6,15 +6,19 @@ const plugin = new Plugin();
 
 const brln = new Broadlink();
 
+const channels = [];
+
+
 plugin.on('device_action', (device) => {
     plugin.debug(device);
 })
 
 
 brln.on("deviceReady", (dev) => {
-    plugin.debug(dev.name + ":  " + dev.host.address + " (" + dev.mactxt + ")  /  " + dev.type);
+    plugin.debug("Found: " + dev.name + ":  " + dev.host.address + " (" + dev.mactxt + ")  /  " + dev.type);
+
     var item = {
-        id: `plug_${dev.mactxt}`, // id - канала
+        id: `plug1_${dev.mactxt}`, // id - канала
         mac: dev.mactxt,
         type: dev.devtype,
         name: dev.name,
@@ -23,7 +27,40 @@ brln.on("deviceReady", (dev) => {
         desc: "plug",
     };
 
-    plugin.setChannels([item]);  // передаем масив каналов серверу, всегда должны пердовать полный список каналов.
+    channels.push(item);
+
+    if(dev.type == "MP1" || dev.type == "MP2")
+    {
+        for(var i = 2; i <= 4; i++)
+        {
+            item = {
+                id: `plug${i}_${dev.mactxt}`, // id - канала
+                mac: dev.mactxt,
+                type: dev.devtype,
+                name: dev.name,
+                ip: dev.host.address,
+                model: dev.type,
+                desc: "plug",
+            };
+            channels.push(item);
+        }
+    }
+
+    if(dev.type == "SP3S")
+    {
+        item = {
+            id: `consumption_${dev.mactxt}`, // id - канала
+            mac: dev.mactxt,
+            type: dev.devtype,
+            name: dev.name,
+            ip: dev.host.address,
+            model: dev.type,
+            desc: "consumption",
+        };
+        channels.push(item);
+    }
+
+    plugin.setChannels(channels);  // передаем масив каналов серверу, всегда должны пердовать полный список каналов.
 
     dev.on("mp_power", (status_array) => {
 
@@ -56,8 +93,6 @@ plugin.on('toolbar_command', (command) => {
 })
 
 plugin.on('start', () => {
-  plugin.debug("version: 0.0.1");
-
 //  plugin.setDeviceValue('00:0a:95:9d:68:18', 0);
 //  plugin.setDeviceError('00:0a:95:9d:68:18', 'Device disconnected!');
 });
