@@ -8,6 +8,48 @@ const brln = new Broadlink();
 
 const channels = [];
 
+/*
+плагин можно проверить через эмулятор плагина,
+перйдите в корневую папку с плагином и запустите:
+
+cd home/sadm/git/intraHouse.plugin-broadlink
+node test/index.js
+*/
+
+function createChannel(id, desc, dev) {
+  return {
+    id: `plug${id}_${dev.mactxt}`,
+    mac: dev.mactxt,
+    type: dev.devtype,
+    name: dev.name,
+    ip: dev.host.address,
+    model: dev.type,
+    desc,
+  };
+}
+
+function addChannel(dev) {
+  channels.push(createChannel('1', 'plug', dev));  // create main channel
+
+  switch (dev.type) {
+    case 'MP1':
+    case 'MP2':
+      channels.push(
+        createChannel('2', 'plug', dev),
+        createChannel('3', 'plug', dev),
+        createChannel('4', 'plug', dev),
+      );
+      break;
+    case 'SP3S':
+      channels.push(createChannel('', 'consumption', dev));
+      break;
+    default:
+      break;
+  }
+
+  plugin.setChannels(channels);
+}
+
 
 plugin.on('device_action', (device) => {
     plugin.debug(device);
@@ -17,50 +59,7 @@ plugin.on('device_action', (device) => {
 brln.on("deviceReady", (dev) => {
     plugin.debug("Found: " + dev.name + ":  " + dev.host.address + " (" + dev.mactxt + ")  /  " + dev.type);
 
-    var item = {
-        id: `plug1_${dev.mactxt}`, // id - канала
-        mac: dev.mactxt,
-        type: dev.devtype,
-        name: dev.name,
-        ip: dev.host.address,
-        model: dev.type,
-        desc: "plug",
-    };
-
-    channels.push(item);
-
-    if(dev.type == "MP1" || dev.type == "MP2")
-    {
-        for(var i = 2; i <= 4; i++)
-        {
-            item = {
-                id: `plug${i}_${dev.mactxt}`, // id - канала
-                mac: dev.mactxt,
-                type: dev.devtype,
-                name: dev.name,
-                ip: dev.host.address,
-                model: dev.type,
-                desc: "plug",
-            };
-            channels.push(item);
-        }
-    }
-
-    if(dev.type == "SP3S")
-    {
-        item = {
-            id: `consumption_${dev.mactxt}`, // id - канала
-            mac: dev.mactxt,
-            type: dev.devtype,
-            name: dev.name,
-            ip: dev.host.address,
-            model: dev.type,
-            desc: "consumption",
-        };
-        channels.push(item);
-    }
-
-    plugin.setChannels(channels);  // передаем масив каналов серверу, всегда должны пердовать полный список каналов.
+    addChannel(dev);
 
     dev.on("mp_power", (status_array) => {
 
