@@ -13,16 +13,17 @@ plugin.on('device_action', (device) => {
 
 brln.on("deviceReady", (dev) => {
     plugin.debug(dev.name + ":  " + dev.host.address + " (" + dev.mactxt + ")  /  " + dev.type);
-    var data = {
+    var item = {
+        id: `plug_${dev.mactxt}`, // id - канала
         mac: dev.mactxt,
         type: dev.devtype,
         name: dev.name,
         ip: dev.host.address,
         model: dev.type,
-        desc: "plug"
+        desc: "plug",
     };
 
-    setChannels(data);
+    plugin.setChannels([item]);  // передаем масив каналов серверу, всегда должны пердовать полный список каналов.
 
     dev.on("mp_power", (status_array) => {
 
@@ -56,8 +57,6 @@ plugin.on('toolbar_command', (command) => {
 
 plugin.on('start', () => {
   plugin.debug("version: 0.0.1");
-
-  const channels = plugin.getChannels();
 
 //  plugin.setDeviceValue('00:0a:95:9d:68:18', 0);
 //  plugin.setDeviceError('00:0a:95:9d:68:18', 'Device disconnected!');

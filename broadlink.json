@@ -14,39 +14,34 @@
     {
       "name": "mac",
       "note": "$Mac",
-      "type": "string"
+      "type": "string",
+      "hardlevel": 1
     },
     {
       "name": "type",
       "note": "$Type",
-      "type": "string"
+      "type": "string",
+      "hardlevel": 1
     },
     {
       "name": "name",
       "note": "$Name",
-      "type": "string"
+      "type": "string",
+      "hardlevel": 1
     },
     {
       "name": "ip",
       "note": "$Ip",
-      "type": "string"
+      "type": "string",
+      "hardlevel": 1
     },
     {
       "name": "model",
       "note": "$Model",
-      "type": "string"
+      "type": "string",
+      "hardlevel": 1
     }
   ],
-  "chdefault": {
-    "chan": "",
-    "type": "",
-    "name": "",
-    "ip": "127.0.0.1",
-    "mac": "00:00:00:00:00:00",
-    "dn": "",
-    "model": "",
-    "desc": "plug"
-  },
   "genrules": {
     "plug": {
       "type": "550", "cl": "ActorD",
