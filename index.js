@@ -7,7 +7,7 @@ const plugin = new Plugin();
 const brln = new Broadlink();
 
 const channels = [];
-const channelids = [];
+const channelids = {};
 
 /*
 плагин можно проверить через эмулятор плагина,
@@ -20,9 +20,9 @@ node test/index.js
 function createChannel(id, desc, dev)
 {
     const devid = `${desc}${id}_${dev.mactxt}`;
-    if(channelids.indexOf(devid) == -1)
+    if(!channelids.hasOwnProperty(devid))
     {
-        channelids.push(devid);
+        channelids[devid] = dev;
         channels.push({
             id: devid,
             mac: dev.mactxt,
@@ -66,7 +66,28 @@ function addChannel(dev) {
 
 
 plugin.on('device_action', (device) => {
-    plugin.debug(device);
+    plugin.debug("incomming action: " + device);
+    if(channelids.hasOwnProperty(device.id))
+    {
+        var sid = 1;
+        if(device.desc == 'plug')
+            sid = Number(device.id.substring(4, 1));
+
+        switch (device.command) {
+          case 'on':
+            if(channelids[device.id].set_power)
+                channelids[device.id].set_power(1, sid);
+            break;
+          case 'off':
+            if(channelids[device.id].set_power)
+                channelids[device.id].set_power(0, sid);
+            break;
+          default:
+        }
+
+        if(channelids[device.id].check_power)
+            channelids[device.id].check_power();
+    }
 })
 
 
