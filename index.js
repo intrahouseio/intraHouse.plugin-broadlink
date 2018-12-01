@@ -87,6 +87,8 @@ plugin.on('device_action', (device) => {
 
         if(channelids[device.id].check_power)
             channelids[device.id].check_power();
+        if(channelids[device.id].check_energy)
+            channelids[device.id].check_energy();
     }
 })
 
