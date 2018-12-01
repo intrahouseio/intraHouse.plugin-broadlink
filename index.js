@@ -66,12 +66,12 @@ function addChannel(dev) {
 
 
 plugin.on('device_action', (device) => {
-    plugin.debug("incomming action: " + device);
+    plugin.debug("incomming action: " + device.id + " / " + device.command);
     if(channelids.hasOwnProperty(device.id))
     {
         var sid = 1;
-        if(device.desc == 'plug')
-            sid = Number(device.id.substring(4, 1));
+        if(device.desc == 'plug' && parseInt(device.id.substring(4, 5)) > 0)
+            sid = parseInt(device.id.substring(4, 5));
 
         switch (device.command) {
           case 'on':
