@@ -4,12 +4,25 @@
   "gendevices": 0,
   "single": 1,
   "module": "index.js",
-  "params": [],
+  "params": [
+      {
+        "name": "period",
+        "note": "Период опроса (сек)",
+        "type": "number",
+        "val": "15"
+      }
+  ],
   "chpattern": [
     {
       "name": "chan",
       "note": "$Channel",
       "type": "string"
+    },
+    {
+      "name": "name",
+      "note": "$Name",
+      "type": "string",
+      "hardlevel": 1
     },
     {
       "name": "mac",
@@ -20,12 +33,6 @@
     {
       "name": "type",
       "note": "$Type",
-      "type": "string",
-      "hardlevel": 1
-    },
-    {
-      "name": "name",
-      "note": "$Name",
       "type": "string",
       "hardlevel": 1
     },

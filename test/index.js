@@ -4,7 +4,7 @@ const modulepath = './index.js';
 const unitid = 'broadlink'
 
 const params = {
-
+ period: 10
 }
 
 const system = {
