@@ -122,6 +122,8 @@ brln.on("deviceReady", (dev) => {
 plugin.on('toolbar_command', (command) => {
   switch (command.type) {
     case 'DEVICE_SEARCH':
+        channels = [];
+        channelids = {};
         discoverDevices();
       break;
     default:
@@ -165,7 +167,11 @@ function discoverDevices()
 
         setTimeout(function() {
             brln.discover();
-        }, 2500);
+        }, 2000);
+
+        setTimeout(function() {
+            brln.discover();
+        }, 3000);
     }
     else plugin.debug("Broadlink module lost...");
 }
