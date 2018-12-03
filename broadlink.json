@@ -7,7 +7,7 @@
   "params": [
       {
         "name": "period",
-        "note": "Период опроса (сек)",
+        "note": "$Period",
         "type": "number",
         "val": "15"
       }
@@ -60,6 +60,6 @@
     }
   },
   "commands": [
-    { "id": "DEVICE_SEARCH", "name":"Поиск устройств", "reload":true, "noclose":false }
+    { "id": "DEVICE_SEARCH", "name":"$DeviceSearch", "reload":true, "noclose":false }
   ]
 }

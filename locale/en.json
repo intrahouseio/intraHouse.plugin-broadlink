@@ -5,5 +5,7 @@
   "Mac": "Mac",
   "Ip": "Ip",
   "Device": "Device",
-  "Model": "Model"
+  "Model": "Model",
+  "DeviceSearch": "Device search",
+  "Period": "Device polling time (sec)"
 }
